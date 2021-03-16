@@ -14,7 +14,7 @@ Demo R markdown files in this repo:
 - R shiny presentation
 
 ## Dashboard
-- Dashboard example
+- [Dashboard example](https://github.com/jeffreydurieux/OSCoffee_RMarkdown/blob/main/Rmarkdownfiles/dashboard.Rmd)
 
 
 
