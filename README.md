@@ -19,5 +19,12 @@ Demo R markdown files in this repo:
 ## Dashboard
 - [Dashboard example](https://github.com/jeffreydurieux/OSCoffee_RMarkdown/blob/main/Rmarkdownfiles/dashboard.Rmd)
 
+Open one of the documents in Rstudio (for example html.Rmd) and click this button:
+![](knit.png)
 
 
+You might also need to install these R packages first:
+install.packages("mclust")
+install.packages("plotly")
+install.packages("e1071")
+install.packages("flexdashboard")
