@@ -1,0 +1,57 @@
+---
+title: "OSCoffee example"
+author: "Jeffrey Durieux, MSc"
+date: "3/16/2021"
+output: ioslides_presentation
+runtime: shiny
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## Shiny Presentation
+
+This R Markdown presentation is made interactive using Shiny. The viewers of the presentation can change the assumptions underlying what's presented and see the results immediately. 
+
+To learn more, see [Interactive Documents](http://rmarkdown.rstudio.com/authoring_shiny.html).
+
+## Interactive Plot
+
+```{r eruptions}
+inputPanel(
+  selectInput("n_breaks", label = "Number of bins:",
+              choices = c(10, 20, 35, 50), selected = 20),
+  
+  sliderInput("bw_adjust", label = "Bandwidth adjustment:",
+              min = 0.2, max = 2, value = 1, step = 0.2)
+)
+
+renderPlot({
+  hist(faithful$eruptions, probability = TRUE, breaks = as.numeric(input$n_breaks),
+       xlab = "Duration (minutes)", main = "Geyser eruption duration")
+  
+  dens <- density(faithful$eruptions, adjust = input$bw_adjust)
+  lines(dens, col = "blue")
+})
+```
+
+
+## R Output
+
+```{r plot, warning=FALSE, message=FALSE}
+suppressPackageStartupMessages(library(e1071))
+suppressPackageStartupMessages(library(plotly))
+df <- iris
+
+# play around with m to change the fuzziness/softness of the clustering
+# hard partitioning --> 1.1, soft clustering --> pick a higher number e.g., 2
+
+cm <- cmeans(x = df[,-5], centers = 3, m = 2)
+suppressPackageStartupMessages(library(plotly))
+dff <- data.frame(iris[,-5], lab = as.factor( cm$cluster), 
+                  fuzzy = round(apply(cm$membership, MARGIN = 1, max),3))
+
+dff %>% plot_ly(x=~Sepal.Length,y=~Sepal.Width, color = ~lab, text = ~fuzzy)
+```
+
