@@ -18,7 +18,7 @@ This is an example R Markdown file that is used for the OSCoffee meeting. In thi
 
 Code for this document can be found on [Github](https://github.com/jeffreydurieux/OSCoffee_RMarkdown)
 
-In this example [cluster analysis](https://en.wikipedia.org/wiki/Cluster_analysis) is performed on the famous [iris dataset](https://en.wikipedia.org/wiki/Iris_flower_data_set). Cluster analysis is an exploratory data analysis technique that enables a grouping of objects (flowers in this example) in such a way that objects in the same group are more similar to each other than ojects in other groups.
+In this example [cluster analysis](https://en.wikipedia.org/wiki/Cluster_analysis) is performed on the famous [iris dataset](https://en.wikipedia.org/wiki/Iris_flower_data_set). Cluster analysis is an exploratory data analysis technique that enables a grouping of objects (flowers in this example) in such a way that objects in the same group are more similar to each other than objects in other groups.
 
 ![1. Iris Virginica By Frank Mayfield -CC BY-SA 2.0, <https://commons.wikimedia.org/w/index.php?curid=9805580>\  
 2. Iris Versicolor CC BY-SA 3.0, <https://commons.wikimedia.org/w/index.php?curid=248095>\  
@@ -27,7 +27,7 @@ In this example [cluster analysis](https://en.wikipedia.org/wiki/Cluster_analysi
 
 # Data inspection
 
-In this \texttt{R} code chunck below the iris data set is loaded and attached in R. The structure of the data is shown, together with the first view objects of the data set.
+In this \texttt{R} code chunk below the iris data set is loaded and attached in R. The structure of the data is shown, together with the first view objects of the data set.
 
 There are 150 flowers, 3 species measures on 4 variables.
 
@@ -110,6 +110,45 @@ tmpfile <- tempfile(fileext = '.png')
 export(p , file = tmpfile)
 # this code outside R code chunck ![](`r tmpfile`)
 ```
+
+\newpage
+
+# An example t-test
+
+Besides including pretty plots and figures, you can also use reproducible documents to update and report your results in-text.
+Imagine, we just finished our analysis of whether Setosa petals and Versicolors have significantly different petal lengths:
+
+```{r sepallength, echo = TRUE, eval = TRUE}
+N <- dim(df)[1] # sample size
+
+my_results <- t.test(df$Petal.Length[df$Species=="setosa"], df$Petal.Length[df$Species=="versicolor"]) # save results as object
+
+str(my_results) # see how to access values you want to report
+
+```
+
+<!---
+ Let's report our results as R-objects:
+--->
+
+> We collected `r N` petals and compared the sepal lengths of Setosas (N = `r dim(df[df$Species=="setosa", ])[1]`) and Versicolors (N = `r dim(df[df$Species=="versicolor", ])[1]`). The length of Setosa petals (M = `r  round(my_results$estimate[1], 2)`) was super-duper significantly different from that of Versicolors (M = `r  round(my_results$estimate[2], 2)`), *t* = `r round(my_results$statistic, digits = 2)`, *p* = `r my_results$p.value`.
+
+While we patiently wrote down our results, a wind gust blew away part of the petals. Luckily, we can now report the updated results by simply copy-pasting the above text! ᕕ( ᐛ )ᕗ 
+
+```{r updatedSepallength, echo = TRUE, eval = TRUE}
+temp <- sample(1:N, size = 0.5*N) # let's assume wind will away half of our petals at random
+df <- df[temp, ]; rm(temp) # now they are gone 
+
+N <- dim(df)[1] # new sample size
+my_results <- t.test(df$Petal.Length[df$Species=="setosa"], df$Petal.Length[df$Species=="versicolor"]) # new results
+
+```
+
+<!---
+ The following results text is just copied from above
+--->
+
+> We collected `r N` petals and compared the sepal lengths of Setosas (N = `r dim(df[df$Species=="setosa", ])[1]`) and Versicolors (N = `r dim(df[df$Species=="versicolor", ])[1]`). The length of Setosa petals (M = `r  round(my_results$estimate[1], 2)`) was super-duper significantly different from that of Versicolors (M = `r  round(my_results$estimate[2], 2)`), *t* = `r round(my_results$statistic, digits = 2)`, *p* = `r my_results$p.value`.
 
 
 
