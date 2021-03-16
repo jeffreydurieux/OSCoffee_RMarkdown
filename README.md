@@ -24,7 +24,7 @@ Open one of the documents in Rstudio (for example html.Rmd) and click this butto
 
 
 You might also need to install these R packages first:
-install.packages("mclust")
-install.packages("plotly")
-install.packages("e1071")
-install.packages("flexdashboard")
+- install.packages("mclust")
+- install.packages("plotly")
+- install.packages("e1071")
+- install.packages("flexdashboard")
