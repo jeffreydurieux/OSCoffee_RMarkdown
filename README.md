@@ -10,7 +10,7 @@ Demo R markdown files in this repo:
 - [word example](https://github.com/jeffreydurieux/OSCoffee_RMarkdown/blob/main/Rmarkdownfiles/word.Rmd)
 
 ## Presentations
-- powerpoint 
+- [powerpoint](https://github.com/jeffreydurieux/OSCoffee_RMarkdown/blob/main/Rmarkdownfiles/ppt.Rmd)
 - R shiny presentation
 
 ## Dashboard
