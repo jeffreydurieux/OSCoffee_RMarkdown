@@ -1,6 +1,6 @@
 # OSCoffee R Markdown repository 
 
-Repository for R Markdown OSCoffee meeting:
+Repository for R Markdown OSCoffee meeting. Here are some very basic R markdown files that can be 'knitted' to different formats.
 
 Demo R markdown files in this repo:
 
@@ -11,7 +11,7 @@ Demo R markdown files in this repo:
 
 ## Presentations
 - [powerpoint](https://github.com/jeffreydurieux/OSCoffee_RMarkdown/blob/main/Rmarkdownfiles/ppt.Rmd)
-- R shiny presentation
+- [R shiny presentation](https://github.com/jeffreydurieux/OSCoffee_RMarkdown/blob/main/Rmarkdownfiles/shinypres.Rmd)
 
 ## Dashboard
 - [Dashboard example](https://github.com/jeffreydurieux/OSCoffee_RMarkdown/blob/main/Rmarkdownfiles/dashboard.Rmd)
