@@ -1,0 +1,120 @@
+---
+title: "OSCoffeeExample"
+author: "Jeffrey Durieux, MSc"
+date: "3/16/2021"
+output: 
+  html_document:
+    toc: true
+    code_folding: hide
+bibliography: references.bib
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Introduction
+
+This is an example R Markdown file that is used for the OSCoffee meeting. In this document you can find some basic R Markdown syntax and code. I encourage you to use these type of documents for your own research reports.
+
+Code for this document can be found on [Github](https://github.com/jeffreydurieux/OSCoffee_RMarkdown)
+
+In this example [cluster analysis](https://en.wikipedia.org/wiki/Cluster_analysis) is performed on the famous [iris dataset](https://en.wikipedia.org/wiki/Iris_flower_data_set). Cluster analysis is an exploratory data analysis technique that enables a grouping of objects (flowers in this example) in such a way that objects in the same group are more similar to each other than ojects in other groups.
+
+![1. Iris Virginica By Frank Mayfield -CC BY-SA 2.0, <https://commons.wikimedia.org/w/index.php?curid=9805580>\
+2. Iris Versicolor CC BY-SA 3.0, <https://commons.wikimedia.org/w/index.php?curid=248095>\
+3. Iris Setosa CC BY-SA 3.0, <https://commons.wikimedia.org/w/index.php?curid=170298>\
+](flowerpics/flowerspics.png)
+
+# Data inspection
+
+In this \texttt{R} code chunck below the iris data set is loaded and attached in R. The structure of the data is shown, together with the first view objects of the data set.
+
+There are 150 flowers, 3 species measures on 4 variables.
+
+```{r datainspection, echo = TRUE, eval = TRUE}
+df <- iris
+str(df)
+head(df)
+table(df$Species)
+```
+
+A basic R plot, the different colors refer to the different flower species
+
+```{r basicplot, echo = TRUE, eval = TRUE}
+plot(df[,-5], col = df$Species, main = 'Plot of iris data set')
+```
+
+# Cluster analysis
+
+## k-means
+
+K-means cluster analysis using the algorithm from @HartiganWong1979 is perfomed on the iris data set without the species labels. We select for three clusters (K = 3) and compare the results with the actual species label
+
+```{r kmeans, echo = TRUE, eval = TRUE}
+set.seed(42)
+km <- kmeans(x = df[,-5] , centers = 3, nstart = 1000)
+km
+```
+
+Here is a comparison of the estimated cluster labels and the true labels. A cross tabulation is shown together with the adjusted Rand index [@Hubert1985] from the mclust package [@mclust]. A value around zero means that the estimated clustering does not correspond to the actual labels. A value of 1 means a perfect cluster retrieval.
+
+```{r kmeanscomparison, echo = TRUE, eval = TRUE}
+suppressPackageStartupMessages(library(mclust))
+addmargins( table( iris$Species, km$cluster))
+
+adjustedRandIndex(iris$Species, km$cluster)
+```
+
+## Fuzzy c-means
+
+K-means is a hard partitioning clustering method. That means that object are only allowed to belong to one cluster. We can relax that assumption by using a fuzzy or soft clustering procedure. A famous procedure that enables fuzzy clustering is known as fuzzy c-means [@Bezdek1984]. Code for fuzzy c-means can be found in the R package e1071 [@e1071].
+
+Fuzzy c-means is performed selecting for 3 clusters and using a fuzziness parameter of m = 2. The closest cluster memberships are shown below
+
+```{r cmeans, echo = TRUE, eval = TRUE}
+suppressPackageStartupMessages(library(e1071))
+
+# play around with m to change the fuzziness/softness of the clustering
+# hard partitioning --> 1.1, soft clustering --> pick a higher number e.g., 2
+
+cm <- cmeans(x = df[,-5], centers = 3, m = 2)
+cm$cluster
+
+```
+
+A cross tabulation of the results and adjusted Rand index:
+
+```{r fkmeanscomparison, echo = TRUE, eval = TRUE}
+suppressPackageStartupMessages(library(mclust))
+addmargins( table( iris$Species, cm$cluster))
+
+adjustedRandIndex(iris$Species, cm$cluster)
+```
+
+In order to show the fuzziness of the clustering an interactive plot is show below. Note that only the first two variables were used for the visualization. The interactive plot is made with plotly [@plotly].
+
+```{r plotly2d, echo = TRUE, eval = TRUE,warning=FALSE, message=FALSE}
+
+suppressPackageStartupMessages(library(plotly))
+dff <- data.frame(iris[,-5], lab = as.factor( cm$cluster), 
+                  fuzzy = round(apply(cm$membership, MARGIN = 1, max),3))
+
+
+#hover over data points to see the fuzziness of the clustering
+dff %>% plot_ly(x=~Sepal.Length,y=~Sepal.Width, color = ~lab, text = ~fuzzy)
+```
+
+Or in 3d:
+
+```{r plotly3d, echo = TRUE, eval = TRUE, warning=FALSE, message=FALSE}
+#hover over data points to see the fuzziness of the clustering
+dff %>% plot_ly(x=~Sepal.Length, y=~Sepal.Width, z=~Petal.Length, color = ~lab, text = ~fuzzy)
+```
+
+
+# Conclusion
+
+You can make awesome documents with R Markdown
+
+# References
