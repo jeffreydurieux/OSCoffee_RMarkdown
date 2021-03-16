@@ -1,0 +1,55 @@
+---
+title: "My Dashboard"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: columns
+    vertical_layout: fill
+---
+
+```{r setup, include=FALSE}
+library(flexdashboard)
+```
+
+Column {data-width=750}
+-----------------------------------------------------------------------
+
+### Interactive plot
+
+```{r}
+suppressPackageStartupMessages(library(e1071))
+df <- iris
+
+# play around with m to change the fuzziness/softness of the clustering
+# hard partitioning --> 1.1, soft clustering --> pick a higher number e.g., 2
+
+cm <- cmeans(x = df[,-5], centers = 3, m = 2)
+suppressPackageStartupMessages(library(plotly))
+dff <- data.frame(iris[,-5], lab = as.factor( cm$cluster), 
+                  fuzzy = round(apply(cm$membership, MARGIN = 1, max),3))
+
+dff %>% plot_ly(x=~Sepal.Length,y=~Sepal.Width, color = ~lab, text = ~fuzzy)
+```
+
+Column {.tabset}
+-----------------------------------------------------------------------
+
+### Pie Chart of the clustering
+
+```{r}
+
+plot_ly(dff, labels = ~lab,type = 'pie')
+```
+
+### Table of fuzzy clustering
+
+```{r}
+# install.packages('DT')
+mem <- round(cm$membership, digits = 3)
+tab <- cbind(id = 1:150, mem)
+
+DT::datatable(tab, options = list(
+  pageLength = 10
+)) 
+
+```
+
