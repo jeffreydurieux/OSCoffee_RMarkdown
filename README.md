@@ -2,7 +2,7 @@
 
 Repository for R Markdown OSCoffee meeting. Here are some very basic R markdown files that can be 'knitted' to different formats.
 
-You can download this repository by simply click this button:
+You can download this repository by simply clicking this button:
 ![](downloadhelp.png)
 
 Demo R markdown files in this repo:
