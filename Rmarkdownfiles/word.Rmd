@@ -18,7 +18,7 @@ This is an example R Markdown file that is used for the OSCoffee meeting. In thi
 
 Code for this document can be found on [Github](https://github.com/jeffreydurieux/OSCoffee_RMarkdown)
 
-In this example [cluster analysis](https://en.wikipedia.org/wiki/Cluster_analysis) is performed on the famous [iris dataset](https://en.wikipedia.org/wiki/Iris_flower_data_set). Cluster analysis is an exploratory data analysis technique that enables a grouping of objects (flowers in this example) in such a way that objects in the same group are more similar to each other than ojects in other groups.
+In this example [cluster analysis](https://en.wikipedia.org/wiki/Cluster_analysis) is performed on the famous [iris dataset](https://en.wikipedia.org/wiki/Iris_flower_data_set). Cluster analysis is an exploratory data analysis technique that enables a grouping of objects (flowers in this example) in such a way that objects in the same group are more similar to each other than objects in other groups.
 
 ![1. Iris Virginica By Frank Mayfield -CC BY-SA 2.0, <https://commons.wikimedia.org/w/index.php?curid=9805580>\  
 2. Iris Versicolor CC BY-SA 3.0, <https://commons.wikimedia.org/w/index.php?curid=248095>\  
