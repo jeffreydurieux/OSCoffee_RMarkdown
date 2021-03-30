@@ -33,7 +33,7 @@ dff %>% plot_ly(x=~Sepal.Length,y=~Sepal.Width, color = ~lab, text = ~fuzzy)
 Column {.tabset}
 -----------------------------------------------------------------------
 
-### Pie Chart of the clustering
+### pie Chart of the clustering
 
 ```{r}
 
