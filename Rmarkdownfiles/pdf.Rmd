@@ -133,7 +133,7 @@ str(my_results) # see how to access values you want to report
 
 > We collected `r N` petals and compared the sepal lengths of Setosas (N = `r dim(df[df$Species=="setosa", ])[1]`) and Versicolors (N = `r dim(df[df$Species=="versicolor", ])[1]`). The length of Setosa petals (M = `r  round(my_results$estimate[1], 2)`) was super-duper significantly different from that of Versicolors (M = `r  round(my_results$estimate[2], 2)`), *t* = `r round(my_results$statistic, digits = 2)`, *p* = `r my_results$p.value`.
 
-While we patiently wrote down our results, a wind gust blew away part of the petals. Luckily, we can now report the updated results by simply copy-pasting the above text! ᕕ( ᐛ )ᕗ 
+While we patiently wrote down our results, a wind gust blew away part of the petals. Luckily, we can now report the updated results by simply copy-pasting the above text! 
 
 ```{r updatedSepallength, echo = TRUE, eval = TRUE}
 temp <- sample(1:N, size = 0.5*N) # let's assume wind will away half of our petals at random
